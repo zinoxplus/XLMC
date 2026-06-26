@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>پروفایل گیمینگ · XLMC</title>
   <style>
-    /* ----- تنظیمات اصلی (Steam-like) ----- */
+    /* ----- استایل کلی (شبیه استیم) ----- */
     * {
       margin: 0;
       padding: 0;
@@ -14,314 +14,443 @@
     }
 
     body {
-      background: #0f1117;
-      color: #e5e7eb;
+      background: #1a1e26;
+      color: #c6d0df;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      background-image: radial-gradient(circle at 20% 30%, rgba(42, 52, 75, 0.3) 0%, transparent 60%);
+      background-image: radial-gradient(ellipse at 20% 30%, #2a3444 0%, #12161d 90%);
     }
 
-    /* ----- پنل اصلی با افکت شیشه‌ای ----- */
+    /* ----- کارت اصلی (پروفایل) ----- */
     .profile-card {
-      max-width: 1000px;
+      max-width: 1100px;
       width: 100%;
-      background: rgba(28, 33, 45, 0.7);
-      backdrop-filter: blur(14px) saturate(1.2);
-      border-radius: 32px;
-      padding: 2.5rem;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 153, 0, 0.15);
-      transition: transform 0.2s ease;
+      background: #1b212b;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03);
+      overflow: hidden;
+      border: 1px solid #2d3648;
     }
 
-    /* ----- هدر پروفایل (آواتار + نام) ----- */
+    /* ----- هدر (آواتار + نام + سطح) ----- */
     .profile-header {
+      background: #141a24;
+      padding: 1.8rem 2.5rem;
       display: flex;
       align-items: center;
       gap: 2rem;
       flex-wrap: wrap;
-      padding-bottom: 1.8rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid #2d3648;
     }
 
     .avatar-frame {
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #ff9900, #d67a00);
-      padding: 4px;
-      box-shadow: 0 0 30px rgba(255, 153, 0, 0.25);
+      background: #2d3648;
+      padding: 3px;
+      box-shadow: 0 0 0 2px #3d465a;
     }
 
     .avatar {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: #1e2330;
+      background: #1b212b;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3.2rem;
+      font-size: 2.8rem;
       font-weight: 700;
-      color: #ff9900;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><text x="20" y="70" font-size="60" fill="%23ff9900">🎮</text></svg>');
+      color: #b0c4de;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.08"><text x="25" y="70" font-size="55" fill="%23ffffff">👻</text></svg>');
       background-size: cover;
     }
 
     .user-info h1 {
-      font-size: 2.6rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      color: #ffffff;
-      text-shadow: 0 0 20px rgba(255, 153, 0, 0.15);
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: #e5e9ef;
+      letter-spacing: 0.5px;
     }
 
     .user-info .sub-line {
       display: flex;
       align-items: center;
-      gap: 1.2rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
-      margin-top: 6px;
-      color: #9aa3b5;
+      margin-top: 4px;
+      color: #8b9aaf;
+      font-size: 0.9rem;
+    }
+
+    .badge-level {
+      background: #2d3648;
+      padding: 2px 14px;
+      border-radius: 30px;
+      border: 1px solid #4a556e;
+      color: #b0c4de;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
 
     .badge-online {
       background: #57cb7c;
-      color: #0b1a0e;
+      color: #0d1a0f;
       padding: 2px 12px;
       border-radius: 30px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.3px;
     }
 
-    .badge-steam {
-      background: #1e2330;
-      padding: 4px 14px;
-      border-radius: 30px;
-      font-size: 0.75rem;
-      border: 1px solid #3a4155;
-      color: #cbd5e1;
-    }
-
-    /* ----- شبکه آمار (کارت‌های گیمینگ) ----- */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.2rem;
-      margin: 2rem 0;
-    }
-
-    .stat-card {
-      background: rgba(22, 27, 38, 0.6);
-      border-radius: 18px;
-      padding: 1.2rem 1.2rem 1rem;
-      border-left: 4px solid #ff9900;
-      backdrop-filter: blur(4px);
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .stat-card:hover {
-      transform: translateY(-6px);
-      background: rgba(34, 41, 56, 0.8);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 153, 0, 0.05);
-    }
-
-    .stat-card .stat-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #8892a8;
-      margin-bottom: 6px;
-    }
-
-    .stat-card .stat-value {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: #f0f2f5;
-    }
-
-    .stat-card .stat-sub {
-      font-size: 0.8rem;
-      color: #ff9900;
-      opacity: 0.8;
-      margin-top: 4px;
-    }
-
-    /* ----- بخش جزئیات (دقیق‌تر) ----- */
-    .detail-section {
-      background: rgba(16, 20, 30, 0.5);
-      border-radius: 24px;
-      padding: 1.5rem 1.8rem;
-      margin: 1.8rem 0 1.2rem;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
-
-    .detail-section h3 {
-      font-weight: 400;
-      letter-spacing: 1.5px;
-      font-size: 0.9rem;
-      color: #8892a8;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
-
-    .detail-items {
+    /* ----- بخش بازی اصلی (فازمافوبیا) ----- */
+    .game-highlight {
+      background: #141a24;
+      padding: 1.5rem 2.5rem;
       display: flex;
+      align-items: center;
+      gap: 2.5rem;
       flex-wrap: wrap;
-      gap: 2rem 3.5rem;
+      border-bottom: 1px solid #2d3648;
     }
 
-    .detail-item {
+    .game-icon {
+      font-size: 3.5rem;
+      background: #1b212b;
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
       display: flex;
-      align-items: baseline;
-      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      border: 1px solid #3d465a;
     }
 
-    .detail-item .label {
-      color: #9aa3b5;
+    .game-details {
+      flex: 1;
+    }
+    .game-details h2 {
+      font-weight: 400;
+      font-size: 1.6rem;
+      color: #e5e9ef;
+    }
+    .game-details .game-meta {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+      margin-top: 4px;
+      color: #8b9aaf;
       font-size: 0.9rem;
     }
-
-    .detail-item .value {
-      color: #e5e7eb;
-      font-weight: 500;
-      font-size: 1rem;
-    }
-
-    .detail-item .value i {
+    .game-details .game-meta span i {
       color: #ff9900;
       margin-right: 4px;
     }
 
+    .game-stats-badge {
+      background: #1b212b;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      border: 1px solid #3d465a;
+      text-align: center;
+    }
+    .game-stats-badge .number {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #e5e9ef;
+    }
+    .game-stats-badge .label {
+      font-size: 0.7rem;
+      color: #8b9aaf;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ----- شبکه آمار (نمودارگونه) ----- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1.2rem;
+      padding: 1.8rem 2.5rem;
+      background: #1b212b;
+    }
+
+    .stat-item {
+      background: #141a24;
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      border-left: 4px solid #4a556e;
+      transition: 0.15s;
+      box-shadow: inset 0 1px 0 #2d3648;
+    }
+    .stat-item:hover {
+      border-left-color: #ff9900;
+      background: #1a212c;
+    }
+    .stat-item .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #8b9aaf;
+    }
+    .stat-item .value {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #e5e9ef;
+      margin: 2px 0 4px;
+    }
+    .stat-item .bar {
+      width: 100%;
+      height: 4px;
+      background: #2d3648;
+      border-radius: 10px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .stat-item .bar .fill {
+      height: 100%;
+      background: #ff9900;
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.8s ease;
+    }
+
+    /* ----- بخش جزئیات (با نمودارهای دایره‌ای شکل) ----- */
+    .detail-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 2.5rem 2rem;
+      background: #161c26;
+      border-top: 1px solid #2d3648;
+    }
+
+    .detail-box {
+      background: #141a24;
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid #2d3648;
+    }
+    .detail-box h4 {
+      font-weight: 400;
+      color: #8b9aaf;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #1f2632;
+      font-size: 0.9rem;
+    }
+    .detail-row .label {
+      color: #8b9aaf;
+    }
+    .detail-row .value {
+      color: #e5e9ef;
+      font-weight: 500;
+    }
+
+    /* دایره‌های آماری (CSS) */
+    .circle-stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .circle-item {
+      text-align: center;
+    }
+    .circle-item .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #1b212b;
+      border: 4px solid #2d3648;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #e5e9ef;
+      margin: 0 auto 4px;
+      position: relative;
+      transition: 0.3s;
+    }
+    .circle-item .circle .progress-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 4px solid transparent;
+      border-top-color: #ff9900;
+      border-right-color: #ff9900;
+      transform: rotate(45deg);
+      transition: 0.8s;
+    }
+    .circle-item .label {
+      font-size: 0.65rem;
+      color: #8b9aaf;
+      text-transform: uppercase;
+    }
+
     /* ----- دکمه استیم (یکپارچه) ----- */
-    .btn-steam-integrate {
+    .steam-btn {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: linear-gradient(145deg, #2a3142, #1a1f2b);
-      padding: 12px 32px;
+      background: #2d3648;
+      padding: 10px 28px;
       border-radius: 40px;
-      color: #d6dce8;
+      color: #c6d0df;
       text-decoration: none;
-      font-weight: 600;
-      border: 1px solid #3b445a;
-      transition: 0.2s ease;
-      margin-top: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      font-weight: 500;
+      border: 1px solid #4a556e;
+      transition: 0.15s;
+      margin: 0 2.5rem 1.8rem;
     }
-
-    .btn-steam-integrate:hover {
+    .steam-btn:hover {
       background: #ff9900;
-      color: #0b0d0f;
+      color: #0b0f14;
       border-color: #ff9900;
       transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(255, 153, 0, 0.25);
+      box-shadow: 0 0 30px rgba(255, 153, 0, 0.15);
     }
 
     /* ----- ریسپانسیو ----- */
-    @media (max-width: 700px) {
-      .profile-card { padding: 1.5rem; }
+    @media (max-width: 750px) {
       .profile-header { flex-direction: column; align-items: center; text-align: center; }
-      .user-info .sub-line { justify-content: center; }
+      .game-highlight { flex-direction: column; align-items: center; text-align: center; }
+      .detail-section { grid-template-columns: 1fr; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .detail-items { flex-direction: column; gap: 0.8rem; }
     }
-
-    @media (max-width: 450px) {
+    @media (max-width: 480px) {
       .stats-grid { grid-template-columns: 1fr; }
-      .avatar-frame { width: 85px; height: 85px; }
-      .user-info h1 { font-size: 2rem; }
+      .profile-header { padding: 1.2rem; }
+      .game-highlight { padding: 1.2rem; }
+      .detail-section { padding: 1rem; }
+      .steam-btn { margin: 0 1rem 1.2rem; }
     }
   </style>
 </head>
 <body>
   <div class="profile-card">
-    <!-- هدر: آواتار و نام -->
+
+    <!-- هدر -->
     <div class="profile-header">
-      <div class="avatar-frame">
-        <div class="avatar">XL</div>
-      </div>
+      <div class="avatar-frame"><div class="avatar">XL</div></div>
       <div class="user-info">
         <h1>XLMC</h1>
         <div class="sub-line">
           <span class="badge-online">● آنلاین</span>
-          <span class="badge-steam">🎮 ۱۲ سال عضو</span>
-          <span style="color:#6b7a93;">|</span>
-          <span style="color:#9aa3b5;">۲۳ دوست</span>
+          <span class="badge-level">🎮 سطح ۲۲</span>
+          <span>|</span>
+          <span>👥 ۲۳ دوست</span>
+          <span>|</span>
+          <span>📅 عضو از ۲۰۱۴</span>
         </div>
       </div>
     </div>
 
-    <!-- کارت‌های آمار اصلی -->
+    <!-- بازی اصلی: Phasmophobia -->
+    <div class="game-highlight">
+      <div class="game-icon">👻</div>
+      <div class="game-details">
+        <h2>Phasmophobia</h2>
+        <div class="game-meta">
+          <span><i>🕒</i> ۱۸۶ ساعت اخیر</span>
+          <span><i>🏆</i> ۴۲/۶۵ دستاورد</span>
+          <span><i>⭐</i> آخرین بازی: ۲ ساعت پیش</span>
+        </div>
+      </div>
+      <div class="game-stats-badge">
+        <div class="number">۱۲</div>
+        <div class="label">شکارهای زنده‌مانده</div>
+      </div>
+    </div>
+
+    <!-- کارت‌های آماری با نوار پیشرفت -->
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">🎯 بازی اخیر</div>
-        <div class="stat-value">Counter-Strike 2</div>
-        <div class="stat-sub">۳۲۴ ساعت در ۲ هفته</div>
+      <div class="stat-item">
+        <div class="label">👻 ارواح شناسایی شده</div>
+        <div class="value">۲۴</div>
+        <div class="bar"><div class="fill" style="width:72%"></div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">🏆 بازی‌های انجام شده</div>
-        <div class="stat-value">۴۷</div>
-        <div class="stat-sub">در کتابخانه</div>
+      <div class="stat-item">
+        <div class="label">📸 عکس‌های اثبات</div>
+        <div class="value">۸۶</div>
+        <div class="bar"><div class="fill" style="width:63%"></div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">⭐ دستاوردها</div>
-        <div class="stat-value">۱٬۲۴۰</div>
-        <div class="stat-sub">۸۲% کامل شده</div>
+      <div class="stat-item">
+        <div class="label">🔦 بقا در شکار</div>
+        <div class="value">۶۸%</div>
+        <div class="bar"><div class="fill" style="width:68%"></div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">📦 آیتم‌های انبار</div>
-        <div class="stat-value">۳۱۸</div>
-        <div class="stat-sub">شامل ۱۲ آیتم کمیاب</div>
+      <div class="stat-item">
+        <div class="label">🧠 سطح ترس</div>
+        <div class="value">۴۲</div>
+        <div class="bar"><div class="fill" style="width:42%"></div></div>
       </div>
     </div>
 
-    <!-- بخش جزئیات دقیق -->
+    <!-- بخش جزئیات با نمودارهای دایره‌ای و اطلاعات -->
     <div class="detail-section">
-      <h3>📋 جزئیات حساب</h3>
-      <div class="detail-items">
-        <div class="detail-item"><span class="label">سال عضویت:</span><span class="value"><i>🔹</i> ۲۰۱۴</span></div>
-        <div class="detail-item"><span class="label">سطح Steam:</span><span class="value"><i>🔸</i> ۲۲</span></div>
-        <div class="detail-item"><span class="label">بازی‌های کامل شده:</span><span class="value"><i>✅</i> ۱۴</span></div>
-        <div class="detail-item"><span class="label">نظرات نوشته شده:</span><span class="value"><i>📝</i> ۳۶</span></div>
-        <div class="detail-item"><span class="label">گروه‌های عضو:</span><span class="value"><i>👥</i> ۵ گروه</span></div>
-        <div class="detail-item"><span class="label">آیدی Steam:</span><span class="value"><code style="background:#1e2330;padding:2px 10px;border-radius:30px;">M_LMC</code></span></div>
+      <div class="detail-box">
+        <h4>📊 آمار کلی بازی</h4>
+        <div class="circle-stats">
+          <div class="circle-item">
+            <div class="circle">۸۰%<div class="progress-ring" style="transform:rotate(45deg); border-top-color:#57cb7c; border-right-color:#57cb7c;"></div></div>
+            <div class="label">مأموریت‌های موفق</div>
+          </div>
+          <div class="circle-item">
+            <div class="circle">۵۶%<div class="progress-ring" style="transform:rotate(45deg); border-top-color:#ff9900; border-right-color:#ff9900;"></div></div>
+            <div class="label">تشخیص صحیح روح</div>
+          </div>
+          <div class="circle-item">
+            <div class="circle">۳۳%<div class="progress-ring" style="transform:rotate(45deg); border-top-color:#e74c3c; border-right-color:#e74c3c;"></div></div>
+            <div class="label">مرگ‌های ثبت شده</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-box">
+        <h4>📋 جزئیات حساب</h4>
+        <div class="detail-row"><span class="label">آیدی Steam</span><span class="value">M_LMC</span></div>
+        <div class="detail-row"><span class="label">بازی‌های کامل شده</span><span class="value">۱۴ عنوان</span></div>
+        <div class="detail-row"><span class="label">دستاوردهای کلی</span><span class="value">۱,۲۴۰</span></div>
+        <div class="detail-row"><span class="label">آیتم‌های انبار</span><span class="value">۳۱۸</span></div>
+        <div class="detail-row"><span class="label">گروه‌های عضو</span><span class="value">۵ گروه</span></div>
       </div>
     </div>
 
-    <!-- دکمه یکپارچه با استیم -->
-    <a href="https://steamcommunity.com/id/M_LMC/" target="_blank" class="btn-steam-integrate">
-      <span style="font-size:1.2rem;">▶</span> مشاهده پروفایل Steam
+    <!-- دکمه استیم -->
+    <a href="https://steamcommunity.com/id/M_LMC/" target="_blank" class="steam-btn">
+      <span>▶</span> مشاهده پروفایل کامل Steam
     </a>
   </div>
 
-  <!-- افکت spotlight ساده (اختیاری) -->
+  <!-- افکت spotlight سبک -->
   <script>
-    (function(){
-      // یک افکت هاله‌ای که با ماوس حرکت می‌کند (سبک)
-      const body = document.body;
-      const spotlight = document.createElement('div');
-      spotlight.style.cssText = `
-        position: fixed;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        pointer-events: none;
-        background: radial-gradient(circle, rgba(255,153,0,0.06), transparent 70%);
-        transform: translate(-50%, -50%);
-        z-index: -1;
+    (function() {
+      const spot = document.createElement('div');
+      spot.style.cssText = `
+        position: fixed; width: 600px; height: 600px; border-radius: 50%;
+        pointer-events: none; background: radial-gradient(circle, rgba(255,153,0,0.04), transparent 70%);
+        transform: translate(-50%, -50%); z-index: -1;
         transition: left 0.05s linear, top 0.05s linear;
       `;
-      document.body.prepend(spotlight);
-
+      document.body.prepend(spot);
       document.addEventListener('mousemove', (e) => {
-        spotlight.style.left = e.clientX + 'px';
-        spotlight.style.top = e.clientY + 'px';
+        spot.style.left = e.clientX + 'px';
+        spot.style.top = e.clientY + 'px';
       });
     })();
   </script>
