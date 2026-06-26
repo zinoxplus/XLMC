@@ -2,456 +2,517 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>پروفایل گیمینگ · XLMC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Hanzo · AI</title>
   <style>
-    /* ----- استایل کلی (شبیه استیم) ----- */
+    /* ----- تنظیمات کلی ----- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', 'Motiva Sans', system-ui, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
-
     body {
-      background: #1a1e26;
-      color: #c6d0df;
+      background: #0a0c10;
+      color: #e8edf5;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-      background-image: radial-gradient(ellipse at 20% 30%, #2a3444 0%, #12161d 90%);
+      padding: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+    /* پس‌زمینه گرادیان متحرک */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 20%, #1a2a3a, #0a0c10 75%);
+      z-index: -2;
+    }
+    /* افکت نویز */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.03"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3"/></filter><rect width="200" height="200" filter="url(%23n)"/></svg>');
+      background-size: 300px 300px;
+      z-index: -1;
+      pointer-events: none;
     }
 
-    /* ----- کارت اصلی (پروفایل) ----- */
-    .profile-card {
+    /* ----- کانتینر اصلی ----- */
+    .container {
       max-width: 1100px;
       width: 100%;
-      background: #1b212b;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03);
-      overflow: hidden;
-      border: 1px solid #2d3648;
-    }
-
-    /* ----- هدر (آواتار + نام + سطح) ----- */
-    .profile-header {
-      background: #141a24;
-      padding: 1.8rem 2.5rem;
       display: flex;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      border-bottom: 1px solid #2d3648;
-    }
-
-    .avatar-frame {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: #2d3648;
-      padding: 3px;
-      box-shadow: 0 0 0 2px #3d465a;
-    }
-
-    .avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: #1b212b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: #b0c4de;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.08"><text x="25" y="70" font-size="55" fill="%23ffffff">👻</text></svg>');
-      background-size: cover;
-    }
-
-    .user-info h1 {
-      font-size: 2.2rem;
-      font-weight: 500;
-      color: #e5e9ef;
-      letter-spacing: 0.5px;
-    }
-
-    .user-info .sub-line {
-      display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 4px;
-      color: #8b9aaf;
-      font-size: 0.9rem;
-    }
-
-    .badge-level {
-      background: #2d3648;
-      padding: 2px 14px;
-      border-radius: 30px;
-      border: 1px solid #4a556e;
-      color: #b0c4de;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .badge-online {
-      background: #57cb7c;
-      color: #0d1a0f;
-      padding: 2px 12px;
-      border-radius: 30px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
-    /* ----- بخش بازی اصلی (فازمافوبیا) ----- */
-    .game-highlight {
-      background: #141a24;
-      padding: 1.5rem 2.5rem;
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      border-bottom: 1px solid #2d3648;
-    }
-
-    .game-icon {
-      font-size: 3.5rem;
-      background: #1b212b;
-      width: 80px;
-      height: 80px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      border: 1px solid #3d465a;
-    }
-
-    .game-details {
-      flex: 1;
-    }
-    .game-details h2 {
-      font-weight: 400;
-      font-size: 1.6rem;
-      color: #e5e9ef;
-    }
-    .game-details .game-meta {
-      display: flex;
-      gap: 1.8rem;
-      flex-wrap: wrap;
-      margin-top: 4px;
-      color: #8b9aaf;
-      font-size: 0.9rem;
-    }
-    .game-details .game-meta span i {
-      color: #ff9900;
-      margin-right: 4px;
-    }
-
-    .game-stats-badge {
-      background: #1b212b;
-      padding: 0.5rem 1.8rem;
-      border-radius: 40px;
-      border: 1px solid #3d465a;
-      text-align: center;
-    }
-    .game-stats-badge .number {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #e5e9ef;
-    }
-    .game-stats-badge .label {
-      font-size: 0.7rem;
-      color: #8b9aaf;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ----- شبکه آمار (نمودارگونه) ----- */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 1.2rem;
-      padding: 1.8rem 2.5rem;
-      background: #1b212b;
-    }
-
-    .stat-item {
-      background: #141a24;
-      border-radius: 12px;
-      padding: 1rem 1.2rem;
-      border-left: 4px solid #4a556e;
-      transition: 0.15s;
-      box-shadow: inset 0 1px 0 #2d3648;
-    }
-    .stat-item:hover {
-      border-left-color: #ff9900;
-      background: #1a212c;
-    }
-    .stat-item .label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #8b9aaf;
-    }
-    .stat-item .value {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #e5e9ef;
-      margin: 2px 0 4px;
-    }
-    .stat-item .bar {
-      width: 100%;
-      height: 4px;
-      background: #2d3648;
-      border-radius: 10px;
-      margin-top: 6px;
-      overflow: hidden;
-    }
-    .stat-item .bar .fill {
-      height: 100%;
-      background: #ff9900;
-      border-radius: 10px;
-      width: 0%;
-      transition: width 0.8s ease;
-    }
-
-    /* ----- بخش جزئیات (با نمودارهای دایره‌ای شکل) ----- */
-    .detail-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      padding: 1.5rem 2.5rem 2rem;
-      background: #161c26;
-      border-top: 1px solid #2d3648;
-    }
-
-    .detail-box {
-      background: #141a24;
-      border-radius: 12px;
-      padding: 1.2rem 1.5rem;
-      border: 1px solid #2d3648;
-    }
-    .detail-box h4 {
-      font-weight: 400;
-      color: #8b9aaf;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 0.8rem;
-    }
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.3rem 0;
-      border-bottom: 1px solid #1f2632;
-      font-size: 0.9rem;
-    }
-    .detail-row .label {
-      color: #8b9aaf;
-    }
-    .detail-row .value {
-      color: #e5e9ef;
-      font-weight: 500;
-    }
-
-    /* دایره‌های آماری (CSS) */
-    .circle-stats {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-    .circle-item {
-      text-align: center;
-    }
-    .circle-item .circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: #1b212b;
-      border: 4px solid #2d3648;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #e5e9ef;
-      margin: 0 auto 4px;
       position: relative;
-      transition: 0.3s;
     }
-    .circle-item .circle .progress-ring {
-      position: absolute;
-      inset: -4px;
+
+    /* ----- گوی شفاف (Holographic Orb) ----- */
+    .orb-wrapper {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin-bottom: -20px;
+    }
+
+    .orb {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      border: 4px solid transparent;
-      border-top-color: #ff9900;
-      border-right-color: #ff9900;
-      transform: rotate(45deg);
-      transition: 0.8s;
-    }
-    .circle-item .label {
-      font-size: 0.65rem;
-      color: #8b9aaf;
-      text-transform: uppercase;
+      background: radial-gradient(circle at 30% 30%, rgba(100, 200, 255, 0.25), rgba(0, 150, 255, 0.08) 60%, transparent 75%);
+      box-shadow: 
+        0 0 60px rgba(0, 180, 255, 0.15),
+        inset 0 -30px 60px rgba(0, 100, 200, 0.1),
+        inset 0 30px 60px rgba(100, 200, 255, 0.05);
+      border: 1px solid rgba(100, 200, 255, 0.2);
+      position: relative;
+      animation: orbFloat 6s ease-in-out infinite;
+      backdrop-filter: blur(4px);
+      transform-style: preserve-3d;
     }
 
-    /* ----- دکمه استیم (یکپارچه) ----- */
-    .steam-btn {
+    /* انیمیشن شناور */
+    @keyframes orbFloat {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      50% { transform: translateY(-12px) scale(1.02) rotate(3deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+
+    /* حلقه‌های چرخان دور گوی */
+    .orb-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(100, 200, 255, 0.12);
+      animation: ringSpin 20s linear infinite;
+    }
+    .orb-ring:nth-child(1) {
+      inset: -18px;
+      border-color: rgba(100, 200, 255, 0.08);
+      animation-duration: 25s;
+    }
+    .orb-ring:nth-child(2) {
+      inset: -32px;
+      border-color: rgba(100, 200, 255, 0.05);
+      animation-duration: 35s;
+      animation-direction: reverse;
+    }
+    @keyframes ringSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* نقاط درخشان داخل گوی */
+    .orb-sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #7ec8f0;
+      box-shadow: 0 0 12px #7ec8f0;
+      animation: sparkle 3s ease-in-out infinite;
+    }
+    .orb-sparkle:nth-child(3) { top: 20%; left: 25%; animation-delay: 0.2s; }
+    .orb-sparkle:nth-child(4) { top: 60%; left: 70%; animation-delay: 1.2s; width: 6px; height: 6px; }
+    .orb-sparkle:nth-child(5) { top: 35%; left: 80%; animation-delay: 2s; width: 3px; height: 3px; }
+    .orb-sparkle:nth-child(6) { top: 75%; left: 20%; animation-delay: 0.8s; }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* ----- هدر و عنوان ----- */
+    .header {
+      text-align: center;
+      margin-top: -8px;
+    }
+    .header h1 {
+      font-size: 3.8rem;
+      font-weight: 300;
+      letter-spacing: 12px;
+      background: linear-gradient(135deg, #7ec8f0, #4a9eff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(74, 158, 255, 0.15);
+    }
+    .header .sub {
+      color: #8a9bb5;
+      letter-spacing: 4px;
+      font-size: 0.85rem;
+      margin-top: -6px;
+    }
+
+    /* ----- بخش چت (پنل) ----- */
+    .chat-panel {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(18, 24, 34, 0.65);
+      backdrop-filter: blur(24px);
+      border-radius: 28px;
+      border: 1px solid rgba(100, 200, 255, 0.08);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+      padding: 1.8rem 2rem;
+      transition: 0.3s;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-messages {
+      flex: 1;
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 6px;
+      margin-bottom: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: #4a9eff; border-radius: 10px; }
+
+    .msg {
+      padding: 10px 16px;
+      border-radius: 18px;
+      max-width: 85%;
+      animation: msgFade 0.3s ease;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: rgba(74, 158, 255, 0.18);
+      border: 1px solid rgba(74, 158, 255, 0.12);
+      border-bottom-right-radius: 4px;
+    }
+    .msg.ai {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom-left-radius: 4px;
+    }
+    .msg.ai .typing-dots {
       display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: #2d3648;
-      padding: 10px 28px;
-      border-radius: 40px;
-      color: #c6d0df;
-      text-decoration: none;
-      font-weight: 500;
-      border: 1px solid #4a556e;
-      transition: 0.15s;
-      margin: 0 2.5rem 1.8rem;
+      gap: 4px;
+      padding: 0 4px;
     }
-    .steam-btn:hover {
-      background: #ff9900;
-      color: #0b0f14;
-      border-color: #ff9900;
-      transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(255, 153, 0, 0.15);
+    .msg.ai .typing-dots span {
+      width: 6px;
+      height: 6px;
+      background: #8a9bb5;
+      border-radius: 50%;
+      animation: dotBounce 1.2s infinite;
+    }
+    .msg.ai .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .msg.ai .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+    @keyframes msgFade {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ----- ریسپانسیو ----- */
-    @media (max-width: 750px) {
-      .profile-header { flex-direction: column; align-items: center; text-align: center; }
-      .game-highlight { flex-direction: column; align-items: center; text-align: center; }
-      .detail-section { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    /* ----- ورودی و دکمه ----- */
+    .input-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 1rem;
     }
-    @media (max-width: 480px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      .profile-header { padding: 1.2rem; }
-      .game-highlight { padding: 1.2rem; }
-      .detail-section { padding: 1rem; }
-      .steam-btn { margin: 0 1rem 1.2rem; }
+    .input-row input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 18px;
+      border-radius: 40px;
+      color: #e8edf5;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    .input-row input:focus {
+      border-color: rgba(74, 158, 255, 0.3);
+      box-shadow: 0 0 20px rgba(74, 158, 255, 0.04);
+    }
+    .input-row input::placeholder {
+      color: #5a6a7e;
+      font-weight: 300;
+    }
+    .input-row button {
+      background: linear-gradient(135deg, #4a9eff, #2b7be0);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 4px 16px rgba(74, 158, 255, 0.15);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .input-row button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 28px rgba(74, 158, 255, 0.25);
+      background: linear-gradient(135deg, #5aafff, #3b8bf0);
+    }
+    .input-row button:active { transform: scale(0.96); }
+    .input-row button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ----- وضعیت اتصال ----- */
+    .status {
+      font-size: 0.7rem;
+      color: #5a6a7e;
+      letter-spacing: 1px;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+    .status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4a9eff;
+      animation: pulseDot 2s infinite;
+    }
+    .status .dot.off { background: #5a6a7e; animation: none; }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ----- واکنش‌گرا ----- */
+    @media (max-width: 640px) {
+      .orb-wrapper { width: 140px; height: 140px; }
+      .header h1 { font-size: 2.6rem; letter-spacing: 6px; }
+      .chat-panel { padding: 1.2rem; }
+      .input-row { flex-wrap: wrap; }
+      .input-row input { flex: 1 1 100%; }
+      .input-row button { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <div class="profile-card">
-
-    <!-- هدر -->
-    <div class="profile-header">
-      <div class="avatar-frame"><div class="avatar">XL</div></div>
-      <div class="user-info">
-        <h1>XLMC</h1>
-        <div class="sub-line">
-          <span class="badge-online">● آنلاین</span>
-          <span class="badge-level">🎮 سطح ۲۲</span>
-          <span>|</span>
-          <span>👥 ۲۳ دوست</span>
-          <span>|</span>
-          <span>📅 عضو از ۲۰۱۴</span>
-        </div>
+  <div class="container">
+    <!-- گوی + حلقه‌ها -->
+    <div class="orb-wrapper">
+      <div class="orb">
+        <div class="orb-ring"></div>
+        <div class="orb-ring"></div>
+        <div class="orb-sparkle"></div>
+        <div class="orb-sparkle"></div>
+        <div class="orb-sparkle"></div>
+        <div class="orb-sparkle"></div>
       </div>
     </div>
 
-    <!-- بازی اصلی: Phasmophobia -->
-    <div class="game-highlight">
-      <div class="game-icon">👻</div>
-      <div class="game-details">
-        <h2>Phasmophobia</h2>
-        <div class="game-meta">
-          <span><i>🕒</i> ۱۸۶ ساعت اخیر</span>
-          <span><i>🏆</i> ۴۲/۶۵ دستاورد</span>
-          <span><i>⭐</i> آخرین بازی: ۲ ساعت پیش</span>
-        </div>
-      </div>
-      <div class="game-stats-badge">
-        <div class="number">۱۲</div>
-        <div class="label">شکارهای زنده‌مانده</div>
-      </div>
+    <!-- عنوان -->
+    <div class="header">
+      <h1>HANZO</h1>
+      <div class="sub">◈  هوش مصنوعی  ◈</div>
     </div>
 
-    <!-- کارت‌های آماری با نوار پیشرفت -->
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="label">👻 ارواح شناسایی شده</div>
-        <div class="value">۲۴</div>
-        <div class="bar"><div class="fill" style="width:72%"></div></div>
+    <!-- پنل چت -->
+    <div class="chat-panel">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg ai">👋 سلام! من هانزو هستم. هر سوالی داری، بپرس.</div>
       </div>
-      <div class="stat-item">
-        <div class="label">📸 عکس‌های اثبات</div>
-        <div class="value">۸۶</div>
-        <div class="bar"><div class="fill" style="width:63%"></div></div>
+
+      <div class="input-row">
+        <input type="text" id="userInput" placeholder="پیام خود را بنویسید..." />
+        <button id="sendBtn">▶ ارسال</button>
       </div>
-      <div class="stat-item">
-        <div class="label">🔦 بقا در شکار</div>
-        <div class="value">۶۸%</div>
-        <div class="bar"><div class="fill" style="width:68%"></div></div>
-      </div>
-      <div class="stat-item">
-        <div class="label">🧠 سطح ترس</div>
-        <div class="value">۴۲</div>
-        <div class="bar"><div class="fill" style="width:42%"></div></div>
+
+      <div class="status">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">متصل به DeepSeek</span>
       </div>
     </div>
-
-    <!-- بخش جزئیات با نمودارهای دایره‌ای و اطلاعات -->
-    <div class="detail-section">
-      <div class="detail-box">
-        <h4>📊 آمار کلی بازی</h4>
-        <div class="circle-stats">
-          <div class="circle-item">
-            <div class="circle">۸۰%<div class="progress-ring" style="transform:rotate(45deg); border-top-color:#57cb7c; border-right-color:#57cb7c;"></div></div>
-            <div class="label">مأموریت‌های موفق</div>
-          </div>
-          <div class="circle-item">
-            <div class="circle">۵۶%<div class="progress-ring" style="transform:rotate(45deg); border-top-color:#ff9900; border-right-color:#ff9900;"></div></div>
-            <div class="label">تشخیص صحیح روح</div>
-          </div>
-          <div class="circle-item">
-            <div class="circle">۳۳%<div class="progress-ring" style="transform:rotate(45deg); border-top-color:#e74c3c; border-right-color:#e74c3c;"></div></div>
-            <div class="label">مرگ‌های ثبت شده</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail-box">
-        <h4>📋 جزئیات حساب</h4>
-        <div class="detail-row"><span class="label">آیدی Steam</span><span class="value">M_LMC</span></div>
-        <div class="detail-row"><span class="label">بازی‌های کامل شده</span><span class="value">۱۴ عنوان</span></div>
-        <div class="detail-row"><span class="label">دستاوردهای کلی</span><span class="value">۱,۲۴۰</span></div>
-        <div class="detail-row"><span class="label">آیتم‌های انبار</span><span class="value">۳۱۸</span></div>
-        <div class="detail-row"><span class="label">گروه‌های عضو</span><span class="value">۵ گروه</span></div>
-      </div>
-    </div>
-
-    <!-- دکمه استیم -->
-    <a href="https://steamcommunity.com/id/M_LMC/" target="_blank" class="steam-btn">
-      <span>▶</span> مشاهده پروفایل کامل Steam
-    </a>
   </div>
 
-  <!-- افکت spotlight سبک -->
   <script>
     (function() {
-      const spot = document.createElement('div');
-      spot.style.cssText = `
-        position: fixed; width: 600px; height: 600px; border-radius: 50%;
-        pointer-events: none; background: radial-gradient(circle, rgba(255,153,0,0.04), transparent 70%);
-        transform: translate(-50%, -50%); z-index: -1;
-        transition: left 0.05s linear, top 0.05s linear;
-      `;
-      document.body.prepend(spot);
-      document.addEventListener('mousemove', (e) => {
-        spot.style.left = e.clientX + 'px';
-        spot.style.top = e.clientY + 'px';
+      "use strict";
+
+      // ---------- تنظیمات API ----------
+      // ⚠️ کلید API را در یک فایل .env یا سرور خود نگه دارید.
+      // اینجا فقط برای نمایش قرار داده شده است.
+      const API_KEY = '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'; // کلید شما
+      const API_URL = 'https://api.deepseek.com/v1/chat/completions';
+
+      // ---------- المان‌های DOM ----------
+      const chatMessages = document.getElementById('chatMessages');
+      const userInput = document.getElementById('userInput');
+      const sendBtn = document.getElementById('sendBtn');
+      const statusDot = document.getElementById('statusDot');
+      const statusText = document.getElementById('statusText');
+
+      // ---------- وضعیت ----------
+      let isWaiting = false;
+      let conversationHistory = [
+        { role: 'system', content: 'تو هانزو هستی، یک هوش مصنوعی دوستانه، خلاق و باهوش. به فارسی پاسخ بده و با لحنی گرم و صمیمی صحبت کن.' }
+      ];
+
+      // ---------- توابع کمکی ----------
+      function updateStatus(connected) {
+        if (connected) {
+          statusDot.className = 'dot';
+          statusText.textContent = 'متصل به DeepSeek';
+        } else {
+          statusDot.className = 'dot off';
+          statusText.textContent = 'قطع ارتباط';
+        }
+      }
+
+      // اضافه کردن پیام به چت
+      function addMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `msg ${sender}`;
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return div;
+      }
+
+      // نمایش نشانگر تایپ
+      function showTyping() {
+        const div = document.createElement('div');
+        div.className = 'msg ai';
+        div.id = 'typingIndicator';
+        div.innerHTML = `<span class="typing-dots"><span></span><span></span><span></span></span>`;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      function removeTyping() {
+        const el = document.getElementById('typingIndicator');
+        if (el) el.remove();
+      }
+
+      // ---------- فراخوانی API ----------
+      async function callDeepSeek(userMessage) {
+        // افزودن پیام کاربر به تاریخچه
+        conversationHistory.push({ role: 'user', content: userMessage });
+
+        // نمایش پیام کاربر
+        addMessage(userMessage, 'user');
+
+        // نمایش تایپ
+        showTyping();
+        isWaiting = true;
+        sendBtn.disabled = true;
+        userInput.disabled = true;
+        updateStatus(true);
+
+        try {
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${API_KEY}`
+            },
+            body: JSON.stringify({
+              model: 'deepseek-chat',
+              messages: conversationHistory,
+              temperature: 0.7,
+              max_tokens: 800,
+              stream: false
+            })
+          });
+
+          if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.error?.message || `خطا ${response.status}`);
+          }
+
+          const data = await response.json();
+          const reply = data.choices?.[0]?.message?.content || 'متأسفم، پاسخی دریافت نشد.';
+
+          // ذخیره پاسخ در تاریخچه
+          conversationHistory.push({ role: 'assistant', content: reply });
+
+          // حذف تایپ و نمایش پاسخ
+          removeTyping();
+          addMessage(reply, 'ai');
+
+          updateStatus(true);
+
+        } catch (error) {
+          removeTyping();
+          addMessage(`⚠️ خطا: ${error.message || 'مشکلی در ارتباط با سرور پیش آمد.'}`, 'ai');
+          updateStatus(false);
+          console.error('API Error:', error);
+        } finally {
+          isWaiting = false;
+          sendBtn.disabled = false;
+          userInput.disabled = false;
+          userInput.focus();
+        }
+      }
+
+      // ---------- رویدادها ----------
+      function handleSend() {
+        const text = userInput.value.trim();
+        if (!text || isWaiting) return;
+        userInput.value = '';
+        callDeepSeek(text);
+      }
+
+      sendBtn.addEventListener('click', handleSend);
+      userInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          handleSend();
+        }
       });
+
+      // ---------- شروع (بررسی اولیه) ----------
+      // تست اتصال با یک درخواست سبک
+      async function testConnection() {
+        try {
+          const testResp = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${API_KEY}`
+            },
+            body: JSON.stringify({
+              model: 'deepseek-chat',
+              messages: [{ role: 'user', content: 'پینگ' }],
+              max_tokens: 1
+            })
+          });
+          if (testResp.ok) {
+            updateStatus(true);
+          } else {
+            updateStatus(false);
+          }
+        } catch {
+          updateStatus(false);
+        }
+      }
+      testConnection();
+
+      // فوکوس اولیه
+      userInput.focus();
     })();
   </script>
 </body>
